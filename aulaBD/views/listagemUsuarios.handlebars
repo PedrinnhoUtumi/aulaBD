@@ -1,0 +1,16 @@
+<h1>Usuários Cadastrados</h1>
+{{#if resp.length}}
+    <ul>
+        {{#each resp}}
+        <li>
+            <h2>{{nome}}</h2>
+            <p>{{username}}</p>
+            <form action="/removerUsuario?username={{username}}" method="POST">
+                <button type="submit" class="btn btn-danger">Remover</button>
+            </form>
+        </li>
+        {{/each}}
+    </ul>
+{{else}}
+    <p>Não há usuários cadastrados.</p>
+{{/if}}
