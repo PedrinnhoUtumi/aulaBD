@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 
 const usuarioController = require('./controller/usuario.controller');
 const usuario = require('./entidades/usuario');
-
+const email = require('./config/email')
 //Configuração do Handlebars (necessário a partir da rota #2)
 //Informa ao express qual template engine será usado
 app.engine('handlebars', handlebars.engine({ defaultLayout: 'main' }));
@@ -29,6 +29,7 @@ app.get('/listarUsuarios', function (req, res) {
 });
 
 app.get('/cadastrarUsuario', function (req, res) {
+  email("pedroutumi@gmail", 'Cadastro', 'Conta criada')
   res.render('cadastroUsuario');
 });
 
@@ -40,6 +41,7 @@ app.post('/cadastrarUsuario', function (req, res) {
     if (resp.length > 0) {
       res.render('cadastroUsuario', { usuario: novo_usuario, mensagem: resp });
     }else{
+      // email(novo_usuario.email, 'Cadastro', 'Conta criada')
       res.redirect('/listarUsuarios');
     }
   });
