@@ -21,19 +21,19 @@ app.get('/', function(rerq, res){
   res.end();
 });
 
-app.get('/listarUsuarios', function (req, res) {
+app.get('/listarProdutos', function (req, res) {
   const resultado = usuarioController.listarUsuarios();
   //resultado.then(resp => {res.send(resp)});
   resultado.then(resp => { res.render('listagemUsuarios', { resp }) });
   //console.log(resultado);
 });
 
-app.get('/cadastrarUsuario', function (req, res) {
+app.get('/cadastrarProduto', function (req, res) {
   email("pedroutumi@gmail", 'Cadastro', 'Conta criada')
   res.render('cadastroUsuario');
 });
 
-app.post('/cadastrarUsuario', function (req, res) {
+app.post('/cadastrarProduto', function (req, res) {
   const novo_usuario = new usuario(req.body.nome, req.body.username, req.body.senha, req.body.email);
 
   const resultado = usuarioController.criarUsuario(novo_usuario);
