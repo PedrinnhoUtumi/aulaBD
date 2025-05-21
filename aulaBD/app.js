@@ -53,6 +53,15 @@ app.post('/removerUsuario', function(req, res){
   resultado.then(resp => {res.redirect('/listarUsuarios');});
 });
 
+app.get('/cadastrarProduto', function(req, res) {
+  res.render('cadastroProduto')
+})
+
+app.post('/cadastrarProduto', function(req, res) {
+  console.log(req.body);
+})
+
+
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}...`);
 });
