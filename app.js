@@ -80,6 +80,11 @@ app.post('/cadastrarProduto', function(req, res){
   res.redirect('/cadastrarProduto');
 });
 
+app.post('/removerProduto', (req, res) => {
+  const resultado =  produtoController.removerProduto(req.query.id_produto);
+  resultado.then(resp => {res.redirect('/cadastrarProduto')});
+})
+
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}...`);
 });

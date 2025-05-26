@@ -17,3 +17,10 @@ exports.listarProdutos = async function(){
     const {rows} = await db.query("SELECT * FROM produto");
     return rows;
 }
+
+exports.removerProduto = async (id_produto) => {
+    const resposta = await db.query(
+        `DELETE FROM produto WHERE id_produto = '${id_produto}'`
+    )
+    return resposta
+}

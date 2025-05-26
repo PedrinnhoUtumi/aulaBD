@@ -16,3 +16,7 @@ exports.cadastrarProduto = async function(novo_produto){
 exports.listarProdutos = async () => {
     return produtoDAO.listarProdutos()
 }
+
+exports.removerProduto = async (id_produto) => {
+    return produtoDAO.removerProduto(id_produto)
+}
