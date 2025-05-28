@@ -22,5 +22,15 @@ exports.removerProduto = async (id_produto) => {
     const resposta = await db.query(
         `DELETE FROM produto WHERE id_produto = '${id_produto}'`
     )
-    return resposta
+    return true
+}
+
+exports.consultarProduto = async (id_produto) => {
+    const {rows} = await db.query(
+        `SELECT * FROM produto WHERE id_produto = ${id_produto}`
+    )
+    console.log(id_produto);
+    console.log(rows)
+    
+    return rows[0]
 }

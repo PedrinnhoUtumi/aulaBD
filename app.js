@@ -80,9 +80,34 @@ app.post('/cadastrarProduto', function(req, res){
   res.redirect('/cadastrarProduto');
 });
 
-app.post('/removerProduto', (req, res) => {
-  const resultado =  produtoController.removerProduto(req.query.id_produto);
-  resultado.then(resp => {res.redirect('/cadastrarProduto')});
+app.get('/removerProduto/:id&:imagem', (req, res) => {
+  const resposta = produtoController.removerProduto(req.params.id, req.params.imagem)
+  resposta.then(resp => {
+    res.redirect('/cadastrarProduto')
+  })
+  
+})
+
+app.get('/alterarProduto/:id', (req, res) => {
+  const resposta = produtoController.consultarProduto(req.params.id)
+  resposta.then(resp => {
+    if (resp) {
+      res.render('edicaoProduto', {produto: resp})
+    } else {
+      res.redirect('/cadastrarProduto')
+    }
+  })
+  
+})
+
+app.post('/alterarProduto', (req, res) => {
+  console.log(req.body.id_produto);
+  console.log(req.body.imagemAntiga);
+  console.log(req.body.nome);
+  console.log(req.body.valor);
+  console.log(req.files.imagem.nome);
+  res.end()
+  
 })
 
 app.listen(port, () => {

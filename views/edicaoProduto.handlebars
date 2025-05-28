@@ -1,0 +1,13 @@
+<form action="/alterarProduto" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="id_produto" value="{{produto.id_produto}}">
+    <input type="hidden" name="imagemAntiga" value="{{produto.imagem}}">
+    <img src="../imagens/{{produto.id_produto}}.{{produto.imagem}}" alt="" style="height: 200px;">
+    <p>Nome do Produto: </p>
+    <input type="text" name="nome" value="{{produto.nome}}">
+    <p>Valor: </p>
+    <input type="number" name="valor" value="{{produto.valor}}">
+    <p>Selecione uma imagem: </p>
+    <input type="file" name="imagem">
+    <button type="submit">Cadastrar</button>
+    <a href="/cadastrarProduto" class="btn btn-secondary">Cancelar</a>
+</form>
