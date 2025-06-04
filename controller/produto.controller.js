@@ -33,3 +33,20 @@ exports.removerProduto = async (id_produto, imagem) => {
 exports.consultarProduto = async (id_produto) => {
     return produtoDAO.consultarProduto(id_produto)
 }
+
+exports.atualizarProduto = async function(produto, extImgAntiga) {
+    const resposta = await produtoDAO.atualizarProduto(produto)
+    if(produto.imagem !== null) {
+        fileSystem.unlink(path.join(__dirname, '..', '/imagens/' + produto + '.' + extImgAntiga), erro => {
+            if (erro) {
+                console.log(`Falha ao remover a imagem: ${erro}`);
+            } else {
+                console.log('Removida com sucesso'); 
+            }
+        })
+        const caminho = path.join(__dirname, '..', 'imagens/')
+
+        const extensao_img = produto.imagem.name.split('.').pop()
+        produto.imagem.mv(caminho + produto.id_produto + '.' + extensao_img)
+    }
+}

@@ -34,3 +34,12 @@ exports.consultarProduto = async (id_produto) => {
     
     return rows[0]
 }
+
+exports.atualizarProduto = async function(produto) {
+    if(produto.imagem === null) {
+        const resposta = await db.query(`UPDATE produto SET nome = '${produto.nome}', valor = '${produto.valor}' WHERE id_produto = ${produto.id_produto}`)
+    } else {
+        const extensao_img = produto.imagem.name.split('.').pop();
+        const resposta = await db.query(`UPDATE produto SET nome = '${produto.nome}', valor = '${produto.valor}', imagem = '${extensao_img}' WHERE id_produto = ${produto.id_produto}`)
+    }
+}

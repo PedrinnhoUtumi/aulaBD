@@ -101,12 +101,19 @@ app.get('/alterarProduto/:id', (req, res) => {
 })
 
 app.post('/alterarProduto', (req, res) => {
-  console.log(req.body.id_produto);
-  console.log(req.body.imagemAntiga);
-  console.log(req.body.nome);
-  console.log(req.body.valor);
-  console.log(req.files.imagem.nome);
-  res.end()
+  let edicao_produto;
+  
+  try {
+    edicao_produto = new produto(req.body.nome, req.body.valor, req.files.imagem, req.body.id_produto)
+  } catch(erro) {
+    edicao_produto = new produto(req.body.nome, req.body.valor, null, req.body.id_produto)
+  }
+
+  const resultado = produtoController.atualizarProduto(edicao_produto, req.body.imagemAntiga)
+
+  resultado.then(resp => {
+    res.redirect('/cadastrarProduto')
+  })
   
 })
 
