@@ -5,8 +5,10 @@ const handlebars = require('express-handlebars');
 const bodyParser = require('body-parser');
 const fileupload = require('express-fileupload');
 
+const vendaController = require("./controller/venda.controller");
+const venda = require("./entidades/venda");
 //Adicionar Bootstrap
-app.use('/bootstrap', express.static('./node_modules/bootstrap/dist'))
+app.use('/bootstrap', express.static('./node_modules/bootstrap/dist'));
 
 const usuarioController = require('./controller/usuario.controller');
 const produtoController = require('./controller/produto.controller');
@@ -116,6 +118,27 @@ app.post('/alterarProduto', (req, res) => {
   })
   
 })
+
+app.get("/comprarProduto/:id", async function(req, res) {
+  console.log(req.params.id)
+  const [produto, lista_usuarios] = await Promise.all([
+    produtoController.consultarProduto(req.params.id),
+    usuarioController.listarUsuarios()
+  ])
+  console.log(lista_usuarios);
+  
+  res.render("compraProduto", {produto:produto, usuarios:lista_usuarios})
+})
+
+app.post("/comprarProduto", function(req, res){
+  const nova_venda = new venda(req.body.id_produto, req.body.id_usuario, req.body.valor);
+  const resultado = vendaController.cadastrarVenda(nova_venda)
+
+  resultado.then(resp => {
+    res.redirect('/cadastrarProduto')
+  })
+})
+
 
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}...`);
