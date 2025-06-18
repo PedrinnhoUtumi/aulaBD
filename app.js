@@ -4,7 +4,6 @@ const port = 8086;
 const handlebars = require('express-handlebars');
 const bodyParser = require('body-parser');
 const fileupload = require('express-fileupload');
-
 const vendaController = require("./controller/venda.controller");
 const venda = require("./entidades/venda");
 //Adicionar Bootstrap
@@ -68,9 +67,17 @@ app.post('/removerUsuario', function(req, res){
 
 app.get('/cadastrarProduto', function (req, res) {
   const resultado = produtoController.listarProdutos();
+  
   resultado.then(produtos => {
-    res.render('cadastroProduto', {produtos});
-  })
+    const nomes = produtos.map(p => `"${p.nome}"`);
+    const valores = produtos.map(p => p.valor);
+
+    res.render('cadastroProduto', {
+      produtos,
+      nome: `[${nomes}]`, 
+      valor: JSON.stringify(valores)
+    })
+  });
 });
 
 app.post('/cadastrarProduto', function(req, res){

@@ -1,3 +1,7 @@
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
 <form action="/cadastrarProduto" method="POST" enctype="multipart/form-data">
     <p>Nome do Produto: </p>
     <input type="text" name="nome">
@@ -7,9 +11,30 @@
     <input type="file" name="imagem">
     <button type="submit">Cadastrar</button>
 </form>
+<canvas id="grafico" width="50" height="30"></canvas>
+<script>
+    const valores = {{{valor}}}
+    const nomes ={{{nome}}}
 
+
+    const ctx = document.getElementById('grafico').getContext('2d');
+      new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: nomes,
+      datasets: [{
+        label: 'Valores dos Produtos',
+        data: valores,
+        backgroundColor: 'rgba(75, 192, 192, 0.5)',
+        heigth: '20%'
+      }]
+    }
+  });
+
+</script>
 <div class="container">
     <div class="row">
+        <canvas></canvas>
         {{#each produtos}}
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="card">
@@ -25,3 +50,5 @@
         {{/each}}
     </div>
 </div>
+
+
