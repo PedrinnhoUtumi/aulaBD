@@ -11,7 +11,9 @@
     <input type="file" name="imagem">
     <button type="submit">Cadastrar</button>
 </form>
-<canvas id="grafico" width="50" height="30"></canvas>
+<div style="height: 200px;">
+  <canvas id="grafico" width="50" height="30px"></canvas>
+</div>
 <script>
     const valores = {{{valor}}}
     const nomes ={{{nome}}}
@@ -26,7 +28,6 @@
         label: 'Valores dos Produtos',
         data: valores,
         backgroundColor: 'rgba(75, 192, 192, 0.5)',
-        heigth: '20%'
       }]
     }
   });
@@ -34,7 +35,6 @@
 </script>
 <div class="container">
     <div class="row">
-        <canvas></canvas>
         {{#each produtos}}
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="card">
