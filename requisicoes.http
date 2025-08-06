@@ -1,0 +1,15 @@
+## variaveis
+
+@url=http://localhost:8086
+
+GET  {{url}}
+
+POST {{url}}/Contato
+Content-Type: application/json
+
+{
+    "nome": "joao",
+    "email": "joao@gmail.com",
+    "telefone": "44999316300"
+}
+
